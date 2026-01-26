@@ -1,0 +1,211 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================
+   RESPONSIVE DESIGN SYSTEM
+   Breakpoints:
+   - xs: 320px - 480px (mobile portrait)
+   - sm: 481px - 640px (mobile landscape)
+   - md: 641px - 768px (tablet portrait)
+   - lg: 769px - 1024px (tablet landscape/small laptop)
+   - xl: 1025px - 1280px (laptop/desktop)
+   - 2xl: 1281px+ (large desktop/TV)
+============================================ */
+
+/* CSS Reset & Base Styles */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  color-scheme: dark;
+  scroll-behavior: smooth;
+  /* Prevent font size adjustment on orientation change */
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  /* Base font size for rem calculations */
+  font-size: 16px;
+}
+
+@media (max-width: 480px) {
+  html {
+    font-size: 14px;
+  }
+}
+
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: black;
+  color: white;
+  overflow-x: hidden;
+  min-height: 100vh;
+  /* Prevent horizontal scroll */
+  max-width: 100vw;
+}
+
+/* Responsive Images */
+img,
+video {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Responsive Typography using clamp() */
+h1 {
+  font-size: clamp(2rem, 5vw + 1rem, 4.5rem);
+}
+
+h2 {
+  font-size: clamp(1.75rem, 4vw + 0.5rem, 3.5rem);
+}
+
+h3 {
+  font-size: clamp(1.25rem, 3vw + 0.25rem, 2rem);
+}
+
+p {
+  font-size: clamp(0.875rem, 1.5vw + 0.25rem, 1.125rem);
+}
+
+/* Dark theme support for FallingPattern */
+.dark {
+  --background: #000000;
+  --primary: #a855f7;
+}
+
+:root {
+  /* Border Colors */
+  --border-primary: 0 0% 85%;
+  --border-secondary: 0 0% 75%;
+  --border-tertiary: 0 0% 65%;
+  --border-focus: 215 100% 50%;
+  --border-disabled: 0 0% 90%;
+
+  /* Background Colors */
+  --background-primary: 0 0% 100%;
+  --background-secondary: 0 0% 98%;
+  --background-tertiary: 0 0% 95%;
+  --background-alternative: 0 0% 10%;
+  --background-success: 142 76% 95%;
+  --background-error: 0 93% 95%;
+  --background-warning: 45 93% 95%;
+
+  /* Text Colors */
+  --text-primary: 0 0% 0%;
+  --text-secondary: 0 0% 35%;
+  --text-tertiary: 0 0% 50%;
+  --text-link: 215 100% 50%;
+  --text-alternative: 0 0% 100%;
+  --text-disabled: 0 0% 65%;
+  --text-success: 142 76% 30%;
+  --text-error: 0 93% 40%;
+  --text-warning: 45 93% 30%;
+
+  /* Neutral Colors */
+  --neutral-black: 0 0% 0%;
+  --neutral-white: 0 0% 100%;
+  --neutral-lightest: 0 0% 95%;
+  --neutral-lighter: 0 0% 85%;
+  --neutral-light: 0 0% 70%;
+  --neutral: 0 0% 50%;
+  --neutral-dark: 0 0% 35%;
+  --neutral-darker: 0 0% 20%;
+  --neutral-darkest: 0 0% 10%;
+
+  /* Brand Colors */
+  --brand-lightest: 215 100% 97%;
+  --brand-lighter: 215 100% 85%;
+  --brand-light: 215 100% 70%;
+  --brand: 215 100% 50%;
+  --brand-dark: 215 100% 40%;
+  --brand-darker: 215 100% 30%;
+  --brand-darkest: 215 100% 20%;
+}
+
+/* Cross-browser compatibility fixes */
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+  font-size: 100%;
+}
+
+/* Prevent text from overflowing containers */
+.break-words {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+/* Safe area insets for notched devices (iPhone X+) */
+@supports (padding: max(0px)) {
+  body {
+    padding-left: max(0px, env(safe-area-inset-left));
+    padding-right: max(0px, env(safe-area-inset-right));
+  }
+}
+
+/* Touch-friendly tap targets */
+@media (hover: none) and (pointer: coarse) {
+  button,
+  a,
+  input,
+  select {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
+/* Responsive container */
+.container {
+  width: 100%;
+  max-width: 100%;
+  padding-left: clamp(1rem, 5vw, 3rem);
+  padding-right: clamp(1rem, 5vw, 3rem);
+}
+
+@media (min-width: 1280px) {
+  .container {
+    max-width: 1280px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+/* Fix for Safari flexbox bugs */
+.flex {
+  min-width: 0;
+}
+
+/* Prevent layout shift from scrollbar */
+html {
+  scrollbar-gutter: stable;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  :root {
+    --border-primary: 0 0% 0%;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
