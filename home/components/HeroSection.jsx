@@ -30,7 +30,7 @@ export function HeroSection() {
                                 ease: [0.25, 0.46, 0.45, 0.94]
                             }}
                             style={{
-                                fontSize: 'clamp(4rem, 18vw, 18rem)',
+                                fontSize: 'clamp(2.5rem, 15vw, 18rem)',
                                 fontFamily: "'Arial Black', 'Helvetica Neue', sans-serif",
                                 letterSpacing: '-0.04em',
                             }}

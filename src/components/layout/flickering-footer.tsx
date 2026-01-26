@@ -22,7 +22,7 @@ export const FlickeringFooter = () => {
     return (
         <footer id="footer" className="w-full bg-black overflow-hidden">
             {/* Main Footer Content */}
-            <div className="relative bg-amber-500 text-black">
+            <div className="relative bg-white text-black">
                 {/* Top Section with Info */}
                 <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center px-6 sm:px-10 pt-8 pb-4 gap-4">
                     <div>
@@ -55,7 +55,7 @@ export const FlickeringFooter = () => {
                     <h2
                         className="font-black uppercase tracking-tighter leading-none text-black/90 select-none"
                         style={{
-                            fontSize: isMobile ? 'clamp(4rem, 25vw, 8rem)' : 'clamp(8rem, 18vw, 20rem)',
+                            fontSize: isMobile ? 'clamp(3rem, 15vw, 6rem)' : 'clamp(8rem, 18vw, 20rem)',
                             lineHeight: '0.85',
                             letterSpacing: '-0.04em',
                         }}
