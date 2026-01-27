@@ -218,9 +218,6 @@ Contributions, issues, and feature requests are welcome! Feel free to check the 
 **Thalari Koushik**
 
 - 🌐 Website: [koushikapm.online](https://koushikapm.online)
-- 💼 LinkedIn: [thalari-koushik](https://www.linkedin.com/in/thalari-koushik/)
-- 📧 Email: thalarikoushik143@gmail.com
-- 📸 Instagram: [@tkjsr_](https://www.instagram.com/tkjsr_/)
 
 ---
 
