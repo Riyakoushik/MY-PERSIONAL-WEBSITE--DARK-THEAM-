@@ -11,8 +11,13 @@ export default {
     presets: [relumeTailwindPreset],
     theme: {
         extend: {
+            maxWidth: {
+                container: "1280px",
+            },
             animation: {
                 "border-beam": "border-beam calc(var(--duration)*1s) infinite linear",
+                marquee: 'marquee var(--duration) linear infinite',
+                'marquee-reverse': 'marquee-reverse var(--duration) linear infinite',
             },
             keyframes: {
                 "border-beam": {
@@ -20,6 +25,14 @@ export default {
                         "offset-distance": "100%",
                     },
                 },
+                marquee: {
+                    from: { transform: 'translateX(0)' },
+                    to: { transform: 'translateX(calc(-100% - var(--gap)))' }
+                },
+                'marquee-reverse': {
+                    from: { transform: 'translateX(calc(-100% - var(--gap)))' },
+                    to: { transform: 'translateX(0)' }
+                }
             },
         },
     },

@@ -2,6 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Custom Font - Nouveau Nostalgia */
+@font-face {
+  font-family: 'Nouveau Nostalgia';
+  src: url('/fonts/nouveau-nostalgia/Nouveau Nostalgia.woff2') format('woff2'),
+    url('/fonts/nouveau-nostalgia/Nouveau Nostalgia.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* ============================================
    RESPONSIVE DESIGN SYSTEM
    Breakpoints:
@@ -80,6 +90,49 @@ p {
 .dark {
   --background: #000000;
   --primary: #a855f7;
+  --stripe-color: rgba(0, 0, 0, 0.3);
+}
+
+/* Aurora Hero Background */
+:root {
+  --rainbow-blue: 217 91% 60%;
+  --rainbow-pink: 330 81% 60%;
+  --rainbow-cyan: 180 77% 50%;
+  --stripe-color: rgba(255, 255, 255, 0.1);
+}
+
+@keyframes aurora-bg {
+  0% {
+    background-position: 0% 50%, 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%, 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%, 0% 50%;
+  }
+}
+
+@keyframes aurora-blink {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.3;
+  }
+}
+
+.animate-aurora-bg {
+  animation: aurora-bg 15s ease infinite;
+}
+
+.animate-aurora-blink {
+  animation: aurora-blink 2s ease-in-out infinite;
 }
 
 :root {
@@ -156,6 +209,7 @@ textarea {
 
 /* Touch-friendly tap targets */
 @media (hover: none) and (pointer: coarse) {
+
   button,
   a,
   input,
@@ -200,6 +254,7 @@ html {
 
 /* Reduced motion support */
 @media (prefers-reduced-motion: reduce) {
+
   *,
   *::before,
   *::after {

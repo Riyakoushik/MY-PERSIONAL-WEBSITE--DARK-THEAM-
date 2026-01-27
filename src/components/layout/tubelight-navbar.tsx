@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react"
 import { motion } from "framer-motion"
 import { Home, User, Briefcase, FileText, Mail, LucideIcon } from "lucide-react"
+import { NAV_LINKS } from "@/config/site-config"
 
 interface NavItem {
     name: string
@@ -15,13 +16,13 @@ interface NavBarProps {
     className?: string
 }
 
-// Default nav items for portfolio
+// Default nav items for portfolio - uses centralized config
 const defaultNavItems: NavItem[] = [
-    { name: 'Home', url: '#', icon: Home },
-    { name: 'About', url: '#about', icon: User },
-    { name: 'Projects', url: '#work', icon: Briefcase },
-    { name: 'Resume', url: '#resume', icon: FileText },
-    { name: 'Contact', url: '#footer', icon: Mail }
+    { name: 'Home', url: NAV_LINKS.home, icon: Home },
+    { name: 'About', url: NAV_LINKS.about, icon: User },
+    { name: 'Projects', url: NAV_LINKS.projects, icon: Briefcase },
+    { name: 'Resume', url: NAV_LINKS.resume, icon: FileText },
+    { name: 'Contact', url: NAV_LINKS.contact, icon: Mail }
 ]
 
 export function NavBar({ items = defaultNavItems, className = "" }: NavBarProps) {
@@ -36,6 +37,45 @@ export function NavBar({ items = defaultNavItems, className = "" }: NavBarProps)
 
         const handleScroll = () => {
             setIsScrolled(window.scrollY > 50)
+
+            // Update active tab based on scroll position
+            const sections = items.map(item => {
+                const id = item.url.replace('#', '')
+                const element = id ? document.getElementById(id) : null
+                return { name: item.name, element, url: item.url }
+            })
+
+            // Check if we're at the bottom of the page (for Contact/Footer)
+            const isAtBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 100
+
+            if (isAtBottom) {
+                // Find the Contact/Footer item and set it as active
+                const contactItem = items.find(item => item.url === '#footer')
+                if (contactItem) {
+                    setActiveTab(contactItem.name)
+                    return
+                }
+            }
+
+            // Find which section is currently in view
+            const scrollPosition = window.scrollY + window.innerHeight / 3
+
+            for (let i = sections.length - 1; i >= 0; i--) {
+                const section = sections[i]
+                if (section.url === '#') {
+                    // Home is active when at top
+                    if (window.scrollY < 100) {
+                        setActiveTab(section.name)
+                        break
+                    }
+                } else if (section.element) {
+                    const offsetTop = section.element.offsetTop
+                    if (scrollPosition >= offsetTop) {
+                        setActiveTab(section.name)
+                        break
+                    }
+                }
+            }
         }
 
         handleResize()
@@ -46,7 +86,7 @@ export function NavBar({ items = defaultNavItems, className = "" }: NavBarProps)
             window.removeEventListener("resize", handleResize)
             window.removeEventListener("scroll", handleScroll)
         }
-    }, [])
+    }, [items])
 
     return (
         <div
@@ -57,15 +97,35 @@ export function NavBar({ items = defaultNavItems, className = "" }: NavBarProps)
                 role="navigation"
                 aria-label="Main navigation"
             >
+                {/* Logo and Name */}
+                <a
+                    href="#"
+                    className="flex items-center gap-2 px-2 sm:px-3 py-1 mr-1 sm:mr-2 border-r border-amber-500/20"
+                >
+                    <img
+                        src="/avatar.png"
+                        alt="TK Logo"
+                        className="w-6 h-6 sm:w-7 sm:h-7 rounded-full object-cover"
+                    />
+                    <span
+                        className="hidden sm:inline text-sm font-bold text-white"
+                        style={{ fontFamily: "'Nouveau Nostalgia', sans-serif" }}
+                    >
+                        TK
+                    </span>
+                </a>
                 {items.map((item) => {
                     const Icon = item.icon
                     const isActive = activeTab === item.name
+                    const isExternal = item.url.startsWith('http')
 
                     return (
                         <a
                             key={item.name}
                             href={item.url}
-                            onClick={() => setActiveTab(item.name)}
+                            target={isExternal ? '_blank' : undefined}
+                            rel={isExternal ? 'noopener noreferrer' : undefined}
+                            onClick={() => !isExternal && setActiveTab(item.name)}
                             aria-current={isActive ? 'page' : undefined}
                             className={`
                                 relative cursor-pointer text-xs sm:text-sm font-semibold 

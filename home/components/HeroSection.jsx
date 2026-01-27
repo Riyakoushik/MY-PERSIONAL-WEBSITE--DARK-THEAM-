@@ -14,9 +14,10 @@ export function HeroSection() {
     }, []);
 
     return (
-        <section className="relative min-h-screen flex flex-col justify-center items-center overflow-hidden bg-transparent">
+        <section className="relative min-h-screen flex flex-col justify-center items-center overflow-hidden bg-black">
+
             {/* Main Name - Rotating Text */}
-            <div className="flex-1 flex items-center justify-center w-full px-4">
+            <div className="flex-1 flex items-center justify-center w-full px-4 relative z-10">
                 <div className="relative" style={{ minHeight: '200px' }}>
                     <AnimatePresence mode="wait">
                         <motion.h1
@@ -33,6 +34,7 @@ export function HeroSection() {
                                 fontSize: 'clamp(2.5rem, 15vw, 18rem)',
                                 fontFamily: "'Arial Black', 'Helvetica Neue', sans-serif",
                                 letterSpacing: '-0.04em',
+                                textShadow: '0 0 40px rgba(255, 255, 255, 0.3)',
                             }}
                         >
                             {words[currentWord]}
@@ -43,24 +45,39 @@ export function HeroSection() {
 
             {/* Bottom Info Cards */}
             <motion.div
-                className="w-full px-8 pb-12"
+                className="w-full px-8 pb-12 relative z-10"
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.6 }}
             >
                 <div className="max-w-6xl mx-auto flex flex-wrap justify-center md:justify-between gap-8 text-center md:text-left">
-                    {/* Location */}
-                    <div className="flex flex-col items-center md:items-start gap-2">
-                        <div className="w-6 h-6 rounded-full bg-green-500 flex items-center justify-center">
-                            <svg className="w-3 h-3 text-black" fill="currentColor" viewBox="0 0 20 20">
-                                <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
-                            </svg>
+                    {/* Location - with Maps hover */}
+                    <a
+                        href="https://maps.google.com/?q=Kurnool,Andhra+Pradesh,India"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="group flex flex-col items-center md:items-start gap-2 cursor-pointer transition-all duration-300 hover:scale-105"
+                    >
+                        <div className="relative w-6 h-6">
+                            {/* Default location icon */}
+                            <div className="absolute inset-0 rounded-full bg-green-500 flex items-center justify-center transition-all duration-300 group-hover:opacity-0 group-hover:scale-0">
+                                <svg className="w-3 h-3 text-black" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
+                                </svg>
+                            </div>
+                            {/* Google Maps icon on hover */}
+                            <div className="absolute inset-0 flex items-center justify-center transition-all duration-300 opacity-0 scale-0 group-hover:opacity-100 group-hover:scale-100">
+                                <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none">
+                                    <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="#EA4335" />
+                                    <circle cx="12" cy="9" r="2.5" fill="#fff" />
+                                </svg>
+                            </div>
                         </div>
                         <div>
-                            <p className="text-white text-sm font-semibold tracking-wide uppercase">Kurnool, Andhra Pradesh</p>
-                            <p className="text-gray-500 text-xs uppercase tracking-wider">India</p>
+                            <p className="text-white text-sm font-semibold tracking-wide uppercase group-hover:text-green-400 transition-colors">Kurnool, Andhra Pradesh</p>
+                            <p className="text-gray-500 text-xs uppercase tracking-wider group-hover:text-gray-400 transition-colors">India • Click to view on Maps</p>
                         </div>
-                    </div>
+                    </a>
 
                     {/* Availability */}
                     <div className="flex flex-col items-center gap-2">

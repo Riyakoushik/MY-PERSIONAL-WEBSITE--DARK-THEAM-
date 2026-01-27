@@ -1,0 +1,9 @@
+# Security.txt - Security Disclosure Information
+# See https://securitytxt.org/ for specification
+
+Contact: mailto:koushikthalari@gmail.com
+Preferred-Languages: en
+
+# Acknowledgments: https://yourdomain.com/security/acknowledgments
+
+# Policy: https://yourdomain.com/security/policy
