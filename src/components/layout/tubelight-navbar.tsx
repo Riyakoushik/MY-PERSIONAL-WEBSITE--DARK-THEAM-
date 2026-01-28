@@ -90,25 +90,25 @@ export function NavBar({ items = defaultNavItems, className = "" }: NavBarProps)
 
     return (
         <div
-            className={`fixed top-3 sm:top-4 md:top-6 left-1/2 -translate-x-1/2 z-50 transition-all duration-300 w-[calc(100%-1.5rem)] sm:w-auto max-w-lg sm:max-w-none ${isScrolled ? 'sm:scale-95' : ''} ${className}`}
+            className={`fixed top-3 sm:top-4 md:top-6 left-1/2 -translate-x-1/2 z-50 transition-all duration-300 ${isScrolled ? 'sm:scale-95' : ''} ${className}`}
         >
             <nav
-                className="flex items-center justify-center gap-1 sm:gap-1 md:gap-2 bg-black/70 sm:bg-black/40 border border-amber-500/20 backdrop-blur-xl py-2 sm:py-2 px-2 sm:px-3 rounded-full shadow-2xl shadow-amber-500/10"
+                className="flex items-center justify-center gap-0.5 sm:gap-1 md:gap-2 bg-black/80 sm:bg-black/40 border border-white/10 sm:border-amber-500/20 backdrop-blur-xl py-1.5 sm:py-2 px-2 sm:px-3 rounded-full shadow-lg"
                 role="navigation"
                 aria-label="Main navigation"
             >
-                {/* Logo and Name */}
+                {/* Logo - smaller on mobile */}
                 <a
                     href="#"
-                    className="flex items-center gap-2 px-2 sm:px-3 py-1 mr-1 sm:mr-2 border-r border-amber-500/20"
+                    className="flex items-center px-1.5 sm:px-3 py-1 mr-0.5 sm:mr-2 sm:border-r sm:border-amber-500/20"
                 >
                     <img
                         src="/avatar.png"
                         alt="TK Logo"
-                        className="w-6 h-6 sm:w-7 sm:h-7 rounded-full object-cover"
+                        className="w-5 h-5 sm:w-7 sm:h-7 rounded-full object-cover"
                     />
                     <span
-                        className="hidden sm:inline text-sm font-bold text-white"
+                        className="hidden sm:inline text-sm font-bold text-white ml-2"
                         style={{ fontFamily: "'Nouveau Nostalgia', sans-serif" }}
                     >
                         TK
@@ -129,9 +129,9 @@ export function NavBar({ items = defaultNavItems, className = "" }: NavBarProps)
                             aria-current={isActive ? 'page' : undefined}
                             className={`
                                 relative cursor-pointer text-xs sm:text-sm font-semibold 
-                                px-3 sm:px-4 md:px-6 py-2 sm:py-2 
+                                px-2 sm:px-4 md:px-6 py-1.5 sm:py-2 
                                 rounded-full transition-all duration-300
-                                min-w-[44px] min-h-[44px] sm:min-w-0 sm:min-h-0
+                                min-w-[36px] min-h-[36px] sm:min-w-0 sm:min-h-0
                                 flex items-center justify-center
                                 ${isActive
                                     ? 'text-amber-400'
@@ -141,7 +141,7 @@ export function NavBar({ items = defaultNavItems, className = "" }: NavBarProps)
                         >
                             <span className="hidden md:inline">{item.name}</span>
                             <span className="md:hidden">
-                                <Icon size={isMobile ? 18 : 18} strokeWidth={2.5} />
+                                <Icon size={isMobile ? 16 : 18} strokeWidth={2} />
                             </span>
                             {isActive && (
                                 <motion.div
