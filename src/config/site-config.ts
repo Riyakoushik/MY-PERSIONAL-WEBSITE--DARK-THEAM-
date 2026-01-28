@@ -10,8 +10,8 @@ export const SITE_CONFIG = {
 }
 
 export const SOCIAL_LINKS = {
-    linkedin: "https://www.linkedin.com/in/thalari-koushik/",
-    instagram: "https://www.instagram.com/tkjsr_/",
+    linkedin: "https://www.linkedin.com/in/tkoushik/",
+    instagram: "https://www.instagram.com/nameiskoushikthalari",
     email: "mailto:thalarikoushik143@gmail.com",
     resume: "https://drive.google.com/file/d/1Tn8Vh4vB0TmtnY432U3-l1snkhEIi3P1/view?usp=sharing",
     // Add more social links as needed

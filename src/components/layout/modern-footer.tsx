@@ -12,17 +12,17 @@ export default function ModernFooter() {
         <footer id="footer" className="relative bg-gradient-to-br from-gray-900 via-black to-gray-900 text-white overflow-hidden m-8 rounded-3xl">
             <div className="max-w-7xl mx-auto px-8 sm:px-12 py-16">
                 {/* Top Section */}
-                <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-8 mb-20">
-                    {/* Left: Email Signup */}
-                    <div className="flex-1">
-                        <h2 className="text-4xl sm:text-5xl font-bold mb-6 tracking-tight">
+                <div className="flex flex-col gap-8 mb-20">
+                    {/* Header and Connect Button */}
+                    <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6">
+                        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight">
                             Let's Connect!
                         </h2>
                         <a
                             href={SOCIAL_LINKS.linkedin}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="inline-flex items-center gap-2 px-8 py-3 bg-white text-black rounded-full font-semibold hover:bg-gray-200 transition-all"
+                            className="inline-flex items-center gap-2 px-6 sm:px-8 py-3 bg-white text-black rounded-full font-semibold hover:bg-gray-200 transition-all text-sm sm:text-base"
                         >
                             Connect on LinkedIn
                             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="inline">
@@ -31,21 +31,20 @@ export default function ModernFooter() {
                         </a>
                     </div>
 
-                    {/* Right: Social Links */}
-                    <div className="flex-1 text-right">
-                        <div className="flex flex-wrap justify-end gap-4">
-                            {socialLinks.map((link) => (
-                                <a
-                                    key={link.name}
-                                    href={link.url}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="text-xs font-mono tracking-wider hover:text-gray-400 transition-colors border border-white/20 px-3 py-1.5 rounded-full hover:border-white/40"
-                                >
-                                    [ {link.name} ]
-                                </a>
-                            ))}
-                        </div>
+                    {/* Social Links - Now below header for better mobile visibility */}
+                    <div className="flex flex-wrap justify-start sm:justify-end gap-3">
+                        {socialLinks.map((link) => (
+                            <a
+                                key={link.name}
+                                href={link.url}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-flex items-center gap-2 text-xs font-mono tracking-wider hover:text-gray-400 transition-colors border border-white/20 px-4 py-2 rounded-full hover:border-white/40"
+                            >
+                                <link.icon className="w-4 h-4" />
+                                {link.name}
+                            </a>
+                        ))}
                     </div>
                 </div>
 
