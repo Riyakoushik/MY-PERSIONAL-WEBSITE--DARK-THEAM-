@@ -8,7 +8,7 @@ import ModernFooter from "../src/components/layout/modern-footer";
 import CustomCursor from "../src/components/effects/custom-cursor";
 import SkillsMarquee from "../src/components/ui/skills-marquee";
 import AnimeQuoteMarquee from "../src/components/ui/anime-quote-marquee";
-import MusicPlayer from "../src/components/ui/music-player";
+
 
 const testimonials = [
   {
@@ -97,7 +97,7 @@ export default function Page() {
   return (
     <div className="bg-black min-h-screen">
       <CustomCursor />
-      <MusicPlayer />
+
       <NavBar />
       <HeroSection />
       <SkillsMarquee />

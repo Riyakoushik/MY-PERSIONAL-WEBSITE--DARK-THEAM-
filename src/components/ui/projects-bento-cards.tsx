@@ -1,6 +1,7 @@
 "use client"
 
 import React from "react"
+import { motion } from "framer-motion"
 import { cn } from "@/lib/utils"
 import { PROJECT_LINKS } from "@/config/site-config"
 
@@ -49,6 +50,36 @@ const projectContents: ProjectCard[] = [
     },
 ]
 
+// Animation variants for scroll reveal
+const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+        opacity: 1,
+        transition: {
+            staggerChildren: 0.15,
+            delayChildren: 0.1,
+        },
+    },
+}
+
+const cardVariants = {
+    hidden: {
+        opacity: 0,
+        y: 60,
+        scale: 0.95,
+    },
+    visible: {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        transition: {
+            type: "spring",
+            damping: 20,
+            stiffness: 100,
+            duration: 0.6,
+        },
+    },
+}
 
 const PlusCard: React.FC<{
     className?: string
@@ -56,6 +87,7 @@ const PlusCard: React.FC<{
     description: string
     link?: string
     type?: "project" | "case-study"
+    index?: number
 }> = ({ className = "", title, description, link = "#", type = "project" }) => {
     const handleClick = (e: React.MouseEvent) => {
         if (link === "#") {
@@ -64,10 +96,17 @@ const PlusCard: React.FC<{
     };
 
     return (
-        <div
+        <motion.div
+            variants={cardVariants}
+            whileHover={{
+                scale: 1.02,
+                transition: { duration: 0.2 }
+            }}
             className={cn(
                 "relative border border-dashed border-neutral-700 rounded-lg p-6 bg-neutral-950 min-h-[200px]",
-                "flex flex-col justify-between hover:border-amber-500/50 transition-colors duration-300",
+                "flex flex-col justify-between transition-all duration-300",
+                "hover:border-amber-500/70 hover:shadow-lg hover:shadow-amber-500/10",
+                "hover:bg-neutral-900/50",
                 className
             )}
         >
@@ -93,7 +132,7 @@ const PlusCard: React.FC<{
                     <p className="text-neutral-400 text-sm leading-relaxed">{description}</p>
                 </div>
             </a>
-        </div>
+        </motion.div>
     )
 }
 
@@ -125,8 +164,14 @@ export default function ProjectsBentoCards() {
     return (
         <section id="work" className="bg-transparent py-20 px-6">
             <div className="max-w-6xl mx-auto">
-                {/* Section Header */}
-                <div className="text-center mb-12">
+                {/* Section Header with animation */}
+                <motion.div
+                    className="text-center mb-12"
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "-100px" }}
+                    transition={{ duration: 0.6 }}
+                >
                     <span className="text-xs uppercase tracking-widest text-neutral-500 mb-4 block">
             //PROJECTS
                     </span>
@@ -136,19 +181,31 @@ export default function ProjectsBentoCards() {
                     <p className="text-neutral-400 max-w-xl mx-auto">
                         A selection of projects showcasing AI automation, autonomous agents, and intelligent systems.
                     </p>
-                </div>
+                </motion.div>
 
-                {/* Responsive Bento Grid */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 auto-rows-auto gap-6">
-                    <PlusCard {...projectContents[0]} className="lg:col-span-3 lg:row-span-2" />
-                    <PlusCard {...projectContents[1]} className="lg:col-span-3 lg:row-span-2" />
-                    <PlusCard {...projectContents[2]} className="lg:col-span-4 lg:row-span-1" />
-                    <PlusCard {...projectContents[3]} className="lg:col-span-2 lg:row-span-1" />
-                    <PlusCard {...projectContents[4]} className="lg:col-span-3 lg:row-span-1" />
-                </div>
+                {/* Responsive Bento Grid with scroll-reveal */}
+                <motion.div
+                    className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 auto-rows-auto gap-6"
+                    variants={containerVariants}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, margin: "-50px" }}
+                >
+                    <PlusCard {...projectContents[0]} className="lg:col-span-3 lg:row-span-2" index={0} />
+                    <PlusCard {...projectContents[1]} className="lg:col-span-3 lg:row-span-2" index={1} />
+                    <PlusCard {...projectContents[2]} className="lg:col-span-4 lg:row-span-1" index={2} />
+                    <PlusCard {...projectContents[3]} className="lg:col-span-2 lg:row-span-1" index={3} />
+                    <PlusCard {...projectContents[4]} className="lg:col-span-3 lg:row-span-1" index={4} />
+                </motion.div>
 
-                {/* Section Footer */}
-                <div className="max-w-3xl ml-auto text-right px-4 mt-16">
+                {/* Section Footer with animation */}
+                <motion.div
+                    className="max-w-3xl ml-auto text-right px-4 mt-16"
+                    initial={{ opacity: 0, y: 40 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "-100px" }}
+                    transition={{ duration: 0.7, delay: 0.3 }}
+                >
                     <h3
                         className="text-3xl md:text-5xl font-bold mb-6 leading-tight"
                         style={{ fontFamily: "'Zalando Sans Expanded', sans-serif" }}
@@ -163,7 +220,7 @@ export default function ProjectsBentoCards() {
                         From concept to creation — crafting AI solutions that don't just solve problems,
                         they redefine what's possible. Every line of code is a step towards a smarter tomorrow.
                     </p>
-                </div>
+                </motion.div>
             </div>
         </section>
     )
