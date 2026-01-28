@@ -1,8 +1,5 @@
 # 🚀 Thalari Koushik - Portfolio Website
 
-<div align="center">
-
-![Portfolio Preview](https://koushikapm.online/profile.jpg)
 
 **A modern, interactive portfolio website showcasing AI expertise, product management skills, and creative projects.**
 
