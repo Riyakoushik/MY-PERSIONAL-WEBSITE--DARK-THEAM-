@@ -90,10 +90,10 @@ export function NavBar({ items = defaultNavItems, className = "" }: NavBarProps)
 
     return (
         <div
-            className={`fixed bottom-4 sm:bottom-6 sm:bottom-auto sm:top-4 md:top-6 left-1/2 -translate-x-1/2 z-50 transition-all duration-300 ${isScrolled ? 'sm:scale-95' : ''} ${className}`}
+            className={`fixed top-3 sm:top-4 md:top-6 left-1/2 -translate-x-1/2 z-50 transition-all duration-300 w-[calc(100%-1.5rem)] sm:w-auto max-w-lg sm:max-w-none ${isScrolled ? 'sm:scale-95' : ''} ${className}`}
         >
             <nav
-                className="flex items-center gap-0.5 sm:gap-1 md:gap-2 bg-black/60 sm:bg-black/40 border border-amber-500/20 backdrop-blur-xl py-1.5 sm:py-2 px-1.5 sm:px-2 rounded-full shadow-2xl shadow-amber-500/10"
+                className="flex items-center justify-center gap-1 sm:gap-1 md:gap-2 bg-black/70 sm:bg-black/40 border border-amber-500/20 backdrop-blur-xl py-2 sm:py-2 px-2 sm:px-3 rounded-full shadow-2xl shadow-amber-500/10"
                 role="navigation"
                 aria-label="Main navigation"
             >
@@ -129,9 +129,9 @@ export function NavBar({ items = defaultNavItems, className = "" }: NavBarProps)
                             aria-current={isActive ? 'page' : undefined}
                             className={`
                                 relative cursor-pointer text-xs sm:text-sm font-semibold 
-                                px-2.5 sm:px-4 md:px-6 py-1.5 sm:py-2 
+                                px-3 sm:px-4 md:px-6 py-2 sm:py-2 
                                 rounded-full transition-all duration-300
-                                min-w-[40px] sm:min-w-0
+                                min-w-[44px] min-h-[44px] sm:min-w-0 sm:min-h-0
                                 flex items-center justify-center
                                 ${isActive
                                     ? 'text-amber-400'
@@ -141,7 +141,7 @@ export function NavBar({ items = defaultNavItems, className = "" }: NavBarProps)
                         >
                             <span className="hidden md:inline">{item.name}</span>
                             <span className="md:hidden">
-                                <Icon size={isMobile ? 16 : 18} strokeWidth={2.5} />
+                                <Icon size={isMobile ? 18 : 18} strokeWidth={2.5} />
                             </span>
                             {isActive && (
                                 <motion.div
