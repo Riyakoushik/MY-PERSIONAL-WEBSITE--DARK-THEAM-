@@ -219,6 +219,20 @@ textarea {
   }
 }
 
+/* Performance optimizations for INP (Interaction to Next Paint) */
+button,
+a,
+[role="button"] {
+  touch-action: manipulation;
+}
+
+/* Optimize animated elements */
+.animate-aurora-bg,
+[class*="motion"],
+[class*="animate"] {
+  will-change: transform, opacity;
+}
+
 /* Responsive container */
 .container {
   width: 100%;

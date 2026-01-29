@@ -18,11 +18,16 @@ export function HeroSection() {
 
             {/* Main Name - Rotating Text */}
             <div className="flex-1 flex items-center justify-center w-full px-4 relative z-10">
+                {/* Screen-reader accessible H1 for SEO */}
+                <h1 className="sr-only">Thalari Koushik - Aspiring Product Manager & AI Specialist from Kurnool, Andhra Pradesh, India</h1>
+
                 <div className="relative" style={{ minHeight: '200px' }}>
                     <AnimatePresence mode="wait">
-                        <motion.h1
+                        <motion.span
                             key={currentWord}
-                            className="text-white font-black tracking-tighter leading-none text-center select-none uppercase"
+                            role="presentation"
+                            aria-hidden="true"
+                            className="block text-white font-black tracking-tighter leading-none text-center select-none uppercase"
                             initial={{ opacity: 0, y: 50, rotateX: -90 }}
                             animate={{ opacity: 1, y: 0, rotateX: 0 }}
                             exit={{ opacity: 0, y: -50, rotateX: 90 }}
@@ -38,7 +43,7 @@ export function HeroSection() {
                             }}
                         >
                             {words[currentWord]}
-                        </motion.h1>
+                        </motion.span>
                     </AnimatePresence>
                 </div>
             </div>

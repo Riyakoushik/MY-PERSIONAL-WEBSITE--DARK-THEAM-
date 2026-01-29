@@ -15,9 +15,9 @@ export default function ModernFooter() {
                 <div className="flex flex-col gap-8 mb-20">
                     {/* Header and Connect Button */}
                     <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6">
-                        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight">
+                        <h3 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight">
                             Let's Connect!
-                        </h2>
+                        </h3>
                         <a
                             href={SOCIAL_LINKS.linkedin}
                             target="_blank"
@@ -50,8 +50,9 @@ export default function ModernFooter() {
 
                 {/* Large Text Branding */}
                 <div className="mb-8 overflow-hidden">
-                    <h1
-                        className="font-black text-white select-none uppercase tracking-tighter leading-none whitespace-nowrap"
+                    <span
+                        className="block font-black text-white select-none uppercase tracking-tighter leading-none whitespace-nowrap"
+                        aria-hidden="true"
                         style={{
                             fontSize: 'clamp(4rem, 15vw, 12rem)',
                             fontFamily: "'Nouveau Nostalgia', cursive",
@@ -61,7 +62,7 @@ export default function ModernFooter() {
                         }}
                     >
                         {SITE_CONFIG.name.toUpperCase()}
-                    </h1>
+                    </span>
                 </div>
 
                 {/* Bottom Bar */}

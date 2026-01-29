@@ -38,6 +38,9 @@ export const AboutSection = () => {
                     <span className="w-2 h-2 bg-white rounded-full"></span>
                 </div>
 
+                {/* Section Heading - H2 for SEO */}
+                <h2 className="sr-only">About Thalari Koushik - Background and Approach</h2>
+
                 {/* Main Heading with Sparkles */}
                 <motion.div
                     initial={{ opacity: 0, y: 30 }}
@@ -60,16 +63,24 @@ export const AboutSection = () => {
                     />
                 </motion.div>
 
-                {/* Subtitle */}
-                <motion.p
+                {/* Subtitle with more content for SEO */}
+                <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
                     viewport={{ once: true }}
-                    className="text-neutral-500 text-sm max-w-md mx-auto"
+                    className="max-w-2xl mx-auto"
                 >
-                    Aspiring Product Manager • Building AI-powered experiences
-                </motion.p>
+                    <p className="text-neutral-500 text-sm mb-4">
+                        Aspiring Product Manager • Building AI-powered experiences
+                    </p>
+                    <p className="text-neutral-400 text-base leading-relaxed">
+                        I specialize in designing and developing intelligent automation solutions that transform complex workflows into seamless experiences.
+                        With expertise in AI, agentic systems, and product management, I bridge the gap between cutting-edge technology and user-centric design.
+                        My passion lies in creating autonomous agents, building smart tools, and crafting products that solve real-world problems.
+                        From concept to execution, I bring ideas to life with precision and creativity.
+                    </p>
+                </motion.div>
             </div>
 
             {/* Timeline Numbers */}
