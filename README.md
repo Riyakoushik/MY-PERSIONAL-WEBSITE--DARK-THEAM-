@@ -3,7 +3,7 @@
 
 **A modern, interactive portfolio website showcasing AI expertise, product management skills, and creative projects.**
 
-[![Live Demo](https://img.shields.io/badge/Live%20Demo-koushikapm.online-blue?style=for-the-badge)](https://koushikapm.online)
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-thalarikoushik.in-blue?style=for-the-badge)](https://thalarikoushik.in)
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-green.svg?style=for-the-badge)](https://www.gnu.org/licenses/gpl-3.0)
 [![React](https://img.shields.io/badge/React-18.3.1-61DAFB?style=for-the-badge&logo=react)](https://reactjs.org/)
 [![Vite](https://img.shields.io/badge/Vite-6.0.5-646CFF?style=for-the-badge&logo=vite)](https://vitejs.dev/)
@@ -214,7 +214,7 @@ Contributions, issues, and feature requests are welcome! Feel free to check the 
 
 **Thalari Koushik**
 
-- 🌐 Website: [koushikapm.online](https://koushikapm.online)
+- 🌐 Website: [thalarikoushik.in](https://thalarikoushik.in)
 
 ---
 

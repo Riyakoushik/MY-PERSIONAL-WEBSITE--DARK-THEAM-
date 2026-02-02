@@ -10,5 +10,5 @@ Disallow: /.well-known/
 Disallow: /node_modules/
 
 # Sitemap
-Sitemap: https://koushikapm.online/sitemap.xml
+Sitemap: https://thalarikoushik.in/sitemap.xml
 
