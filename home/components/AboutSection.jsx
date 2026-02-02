@@ -1,9 +1,15 @@
-import React from "react";
-import { motion } from "framer-motion";
+import React, { useEffect, useRef } from "react";
 import { Search, Layers, Rocket } from "lucide-react";
 import { SparklesText } from "@/components/ui/sparkles-text";
+import { gsap, ScrollTrigger } from "@/lib/gsap-config";
 
 export const AboutSection = () => {
+    const sectionRef = useRef(null);
+    const headingRef = useRef(null);
+    const subtitleRef = useRef(null);
+    const timelineRef = useRef(null);
+    const cardsRef = useRef(null);
+
     const phases = [
         {
             id: "01",
@@ -25,8 +31,113 @@ export const AboutSection = () => {
         },
     ];
 
+    useEffect(() => {
+        const ctx = gsap.context(() => {
+            // Heading animation - slide up with fade
+            if (headingRef.current) {
+                gsap.fromTo(
+                    headingRef.current,
+                    { opacity: 0, y: 80 },
+                    {
+                        opacity: 1,
+                        y: 0,
+                        duration: 1,
+                        ease: "power3.out",
+                        scrollTrigger: {
+                            trigger: headingRef.current,
+                            start: "top 85%",
+                        },
+                    }
+                );
+            }
+
+            // Subtitle animation - fade in after heading
+            if (subtitleRef.current) {
+                gsap.fromTo(
+                    subtitleRef.current,
+                    { opacity: 0, y: 40 },
+                    {
+                        opacity: 1,
+                        y: 0,
+                        duration: 0.8,
+                        ease: "power2.out",
+                        scrollTrigger: {
+                            trigger: subtitleRef.current,
+                            start: "top 85%",
+                        },
+                    }
+                );
+            }
+
+            // Timeline dots animation
+            if (timelineRef.current) {
+                const dots = timelineRef.current.querySelectorAll('.timeline-dot');
+                const lines = timelineRef.current.querySelectorAll('.timeline-line');
+
+                gsap.fromTo(
+                    dots,
+                    { scale: 0, opacity: 0 },
+                    {
+                        scale: 1,
+                        opacity: 1,
+                        duration: 0.5,
+                        stagger: 0.2,
+                        ease: "back.out(2)",
+                        scrollTrigger: {
+                            trigger: timelineRef.current,
+                            start: "top 80%",
+                        },
+                    }
+                );
+
+                gsap.fromTo(
+                    lines,
+                    { scaleX: 0 },
+                    {
+                        scaleX: 1,
+                        duration: 0.6,
+                        stagger: 0.15,
+                        ease: "power2.out",
+                        scrollTrigger: {
+                            trigger: timelineRef.current,
+                            start: "top 80%",
+                        },
+                    }
+                );
+            }
+
+            // Cards stagger animation with 3D effect
+            if (cardsRef.current) {
+                const cards = cardsRef.current.querySelectorAll('.phase-card');
+                gsap.fromTo(
+                    cards,
+                    {
+                        opacity: 0,
+                        y: 80,
+                        rotateX: -15,
+                        transformOrigin: "top center",
+                    },
+                    {
+                        opacity: 1,
+                        y: 0,
+                        rotateX: 0,
+                        duration: 0.9,
+                        stagger: 0.2,
+                        ease: "power3.out",
+                        scrollTrigger: {
+                            trigger: cardsRef.current,
+                            start: "top 80%",
+                        },
+                    }
+                );
+            }
+        }, sectionRef);
+
+        return () => ctx.revert();
+    }, []);
+
     return (
-        <section id="about" className="relative min-h-screen w-full py-24 px-6 sm:px-10 bg-transparent text-white overflow-hidden flex flex-col justify-center">
+        <section ref={sectionRef} id="about" className="relative min-h-screen w-full py-24 px-6 sm:px-10 bg-transparent text-white overflow-hidden flex flex-col justify-center">
             {/* Header Row */}
             <div className="max-w-7xl mx-auto flex justify-center items-center text-xs uppercase tracking-widest text-neutral-400 mb-16">
                 <span>HOW I CAN APPROACH</span>
@@ -42,13 +153,7 @@ export const AboutSection = () => {
                 <h2 className="sr-only">About Thalari Koushik - Background and Approach</h2>
 
                 {/* Main Heading with Sparkles */}
-                <motion.div
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, ease: "easeOut" }}
-                    viewport={{ once: true }}
-                    className="mb-8"
-                >
+                <div ref={headingRef} className="mb-8">
                     <SparklesText
                         text="I'M THALARI KOUSHIK BASED"
                         className="text-[48px] font-black leading-[1.1] not-italic text-white"
@@ -61,16 +166,10 @@ export const AboutSection = () => {
                         colors={{ first: "#9E7AFF", second: "#FE8BBB" }}
                         sparklesCount={12}
                     />
-                </motion.div>
+                </div>
 
                 {/* Subtitle with more content for SEO */}
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-                    viewport={{ once: true }}
-                    className="max-w-2xl mx-auto"
-                >
+                <div ref={subtitleRef} className="max-w-2xl mx-auto">
                     <p className="text-neutral-500 text-sm mb-4">
                         Aspiring Product Manager • Building AI-powered experiences
                     </p>
@@ -80,34 +179,30 @@ export const AboutSection = () => {
                         My passion lies in creating autonomous agents, building smart tools, and crafting products that solve real-world problems.
                         From concept to execution, I bring ideas to life with precision and creativity.
                     </p>
-                </motion.div>
+                </div>
             </div>
 
             {/* Timeline Numbers */}
-            <div className="max-w-3xl mx-auto flex justify-between items-center mb-16 px-4">
+            <div ref={timelineRef} className="max-w-3xl mx-auto flex justify-between items-center mb-16 px-4">
                 {phases.map((phase, index) => (
                     <div key={phase.id} className="flex items-center">
                         <div className="flex flex-col items-center">
                             <span className="text-xs font-bold text-neutral-400">{phase.id}</span>
-                            <span className="w-2 h-2 bg-white rounded-full mt-2"></span>
+                            <span className="timeline-dot w-2 h-2 bg-white rounded-full mt-2"></span>
                         </div>
                         {index < phases.length - 1 && (
-                            <div className="w-24 sm:w-32 md:w-48 h-px bg-neutral-700 mx-4"></div>
+                            <div className="timeline-line w-24 sm:w-32 md:w-48 h-px bg-neutral-700 mx-4 origin-left"></div>
                         )}
                     </div>
                 ))}
             </div>
 
             {/* Feature Cards */}
-            <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
-                {phases.slice(0, 2).map((phase, index) => (
-                    <motion.div
+            <div ref={cardsRef} className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
+                {phases.slice(0, 2).map((phase) => (
+                    <div
                         key={phase.id}
-                        initial={{ opacity: 0, y: 40 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6, delay: index * 0.15, ease: "easeOut" }}
-                        viewport={{ once: true }}
-                        className="relative"
+                        className="phase-card relative"
                     >
                         {/* Corner Brackets */}
                         <div className="absolute -top-2 -left-2 w-6 h-6 border-t-2 border-l-2 border-neutral-500/60" />
@@ -161,7 +256,7 @@ export const AboutSection = () => {
                                 <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-neutral-950 to-transparent" />
                             </div>
                         </div>
-                    </motion.div>
+                    </div>
                 ))}
             </div>
         </section>

@@ -24,6 +24,32 @@ export function TestimonialsSection({
             "py-12 sm:py-24 md:py-32 px-0",
             className
         )}>
+            <style>
+                {`
+                    @keyframes testimonials-scroll {
+                        0% {
+                            transform: translateX(0);
+                        }
+                        100% {
+                            transform: translateX(-50%);
+                        }
+                    }
+
+                    .animate-testimonials-scroll {
+                        animation: testimonials-scroll 60s linear infinite;
+                        transform: translateZ(0);
+                        backface-visibility: hidden;
+                    }
+
+                    .pause-animation {
+                        animation-play-state: paused;
+                    }
+
+                    .group:hover .animate-testimonials-scroll {
+                        animation-play-state: paused;
+                    }
+                `}
+            </style>
             <div className="mx-auto flex max-w-6xl flex-col items-center gap-4 text-center sm:gap-16">
                 <div className="flex flex-col items-center gap-4 px-4 sm:gap-8">
                     <h2 className="max-w-[720px] text-3xl font-semibold leading-tight sm:text-5xl sm:leading-tight">
@@ -62,31 +88,6 @@ export function TestimonialsSection({
                     <div className="pointer-events-none absolute inset-y-0 right-0 hidden w-1/3 bg-gradient-to-l from-black sm:block" />
                 </div>
             </div>
-
-            <style jsx>{`
-                @keyframes testimonials-scroll {
-                    0% {
-                        transform: translateX(0);
-                    }
-                    100% {
-                        transform: translateX(-50%);
-                    }
-                }
-
-                .animate-testimonials-scroll {
-                    animation: testimonials-scroll 60s linear infinite;
-                    transform: translateZ(0);
-                    backface-visibility: hidden;
-                }
-
-                .pause-animation {
-                    animation-play-state: paused;
-                }
-
-                .group:hover .animate-testimonials-scroll {
-                    animation-play-state: paused;
-                }
-            `}</style>
         </section>
     )
 }

@@ -6,6 +6,26 @@ const AnimeQuoteMarquee = () => {
 
     return (
         <section className="w-full py-6 bg-black overflow-hidden border-y border-zinc-800">
+            <style>
+                {`
+                    .quote-marquee {
+                        animation: scroll-right 40s linear infinite;
+                    }
+
+                    @keyframes scroll-right {
+                        0% {
+                            transform: translateX(-50%);
+                        }
+                        100% {
+                            transform: translateX(0);
+                        }
+                    }
+
+                    .quote-marquee:hover {
+                        animation-play-state: paused;
+                    }
+                `}
+            </style>
             <div className="relative">
                 <div className="quote-marquee flex whitespace-nowrap">
                     {[1, 2, 3, 4].map((_, repeatIndex) => (
@@ -26,25 +46,6 @@ const AnimeQuoteMarquee = () => {
                     ))}
                 </div>
             </div>
-
-            <style jsx>{`
-                .quote-marquee {
-                    animation: scroll-right 40s linear infinite;
-                }
-
-                @keyframes scroll-right {
-                    0% {
-                        transform: translateX(-50%);
-                    }
-                    100% {
-                        transform: translateX(0);
-                    }
-                }
-
-                .quote-marquee:hover {
-                    animation-play-state: paused;
-                }
-            `}</style>
         </section>
     );
 };

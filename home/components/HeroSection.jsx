@@ -1,23 +1,71 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { gsap, ScrollTrigger } from '@/lib/gsap-config';
 
 export function HeroSection() {
-    const [currentWord, setCurrentWord] = useState(0);
+    const [currentWord, setCurrentWord] = React.useState(0);
     const words = ["THALARI", "KOUSHIK"];
+    const sectionRef = useRef(null);
+    const nameRef = useRef(null);
+    const infoCardsRef = useRef(null);
 
     useEffect(() => {
         const interval = setInterval(() => {
             setCurrentWord((prev) => (prev + 1) % words.length);
-        }, 3000); // Change word every 3 seconds
+        }, 3000);
 
         return () => clearInterval(interval);
     }, []);
 
+    // GSAP animations on mount
+    useEffect(() => {
+        const ctx = gsap.context(() => {
+            // Animate info cards with stagger
+            if (infoCardsRef.current) {
+                const cards = infoCardsRef.current.querySelectorAll('.info-card');
+                gsap.fromTo(
+                    cards,
+                    {
+                        opacity: 0,
+                        y: 50,
+                        scale: 0.9,
+                    },
+                    {
+                        opacity: 1,
+                        y: 0,
+                        scale: 1,
+                        duration: 0.8,
+                        stagger: 0.15,
+                        ease: "power3.out",
+                        delay: 0.8,
+                    }
+                );
+            }
+
+            // Parallax effect on scroll for the name
+            if (nameRef.current) {
+                gsap.to(nameRef.current, {
+                    y: 100,
+                    opacity: 0.3,
+                    ease: "none",
+                    scrollTrigger: {
+                        trigger: sectionRef.current,
+                        start: "top top",
+                        end: "bottom top",
+                        scrub: 1,
+                    },
+                });
+            }
+        }, sectionRef);
+
+        return () => ctx.revert();
+    }, []);
+
     return (
-        <section className="relative min-h-screen flex flex-col justify-center items-center overflow-hidden bg-black">
+        <section ref={sectionRef} className="relative min-h-screen flex flex-col justify-center items-center overflow-hidden bg-black">
 
             {/* Main Name - Rotating Text */}
-            <div className="flex-1 flex items-center justify-center w-full px-4 relative z-10">
+            <div ref={nameRef} className="flex-1 flex items-center justify-center w-full px-4 relative z-10">
                 {/* Screen-reader accessible H1 for SEO */}
                 <h1 className="sr-only">Thalari Koushik - Aspiring Product Manager & AI Specialist from Kurnool, Andhra Pradesh, India</h1>
 
@@ -49,11 +97,9 @@ export function HeroSection() {
             </div>
 
             {/* Bottom Info Cards */}
-            <motion.div
+            <div
+                ref={infoCardsRef}
                 className="w-full px-8 pb-12 relative z-10"
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.6 }}
             >
                 <div className="max-w-6xl mx-auto flex flex-wrap justify-center md:justify-between gap-8 text-center md:text-left">
                     {/* Location - with Maps hover */}
@@ -61,7 +107,7 @@ export function HeroSection() {
                         href="https://maps.google.com/?q=Kurnool,Andhra+Pradesh,India"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="group flex flex-col items-center md:items-start gap-2 cursor-pointer transition-all duration-300 hover:scale-105"
+                        className="info-card group flex flex-col items-center md:items-start gap-2 cursor-pointer transition-all duration-300 hover:scale-105"
                     >
                         <div className="relative w-6 h-6">
                             {/* Default location icon */}
@@ -85,7 +131,7 @@ export function HeroSection() {
                     </a>
 
                     {/* Availability */}
-                    <div className="flex flex-col items-center gap-2">
+                    <div className="info-card flex flex-col items-center gap-2">
                         <div className="w-6 h-6 flex items-center justify-center">
                             <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
@@ -98,7 +144,7 @@ export function HeroSection() {
                     </div>
 
                     {/* Role */}
-                    <div className="flex flex-col items-center md:items-end gap-2">
+                    <div className="info-card flex flex-col items-center md:items-end gap-2">
                         <div className="w-6 h-6 rounded-full bg-blue-500 flex items-center justify-center">
                             <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
                                 <path fillRule="evenodd" d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633zM5.707 6.293a1 1 0 010 1.414L3.414 10l2.293 2.293a1 1 0 11-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0zm8.586 0a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 11-1.414-1.414L16.586 10l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
@@ -110,7 +156,7 @@ export function HeroSection() {
                         </div>
                     </div>
                 </div>
-            </motion.div>
+            </div>
         </section>
     );
 }

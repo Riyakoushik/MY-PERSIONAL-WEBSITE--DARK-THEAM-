@@ -1,9 +1,10 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { motion } from "framer-motion"
 import { Home, User, Briefcase, FileText, Mail, LucideIcon } from "lucide-react"
 import { NAV_LINKS } from "@/config/site-config"
+// import { gsap } from "@/lib/gsap-config" // Temporarily disabled
 
 interface NavItem {
     name: string
@@ -26,9 +27,11 @@ const defaultNavItems: NavItem[] = [
 ]
 
 export function NavBar({ items = defaultNavItems, className = "" }: NavBarProps) {
-    const [activeTab, setActiveTab] = useState(items[0].name)
+    const [activeTab, setActiveTab] = useState(items[0]?.name || 'Home')
     const [isMobile, setIsMobile] = useState(false)
     const [isScrolled, setIsScrolled] = useState(false)
+    const navRef = useRef<HTMLDivElement>(null)
+    const navItemRefs = useRef<(HTMLAnchorElement | null)[]>([])
 
     useEffect(() => {
         const handleResize = () => {
@@ -88,8 +91,59 @@ export function NavBar({ items = defaultNavItems, className = "" }: NavBarProps)
         }
     }, [items])
 
+    // GSAP entrance animation - temporarily disabled
+    // useEffect(() => {
+    //     if (navRef.current) {
+    //         gsap.fromTo(
+    //             navRef.current,
+    //             { y: -100, opacity: 0 },
+    //             {
+    //                 y: 0,
+    //                 opacity: 1,
+    //                 duration: 0.8,
+    //                 ease: "power3.out",
+    //                 delay: 0.3,
+    //             }
+    //         )
+    //     }
+    // }, [])
+
+    // Magnetic effect for nav items (desktop only) - temporarily disabled
+    // useEffect(() => {
+    //     if (isMobile) return
+    //     const handleMouseMove = (e: MouseEvent, el: HTMLAnchorElement) => {
+    //         const bounds = el.getBoundingClientRect()
+    //         const x = (e.clientX - bounds.left - bounds.width / 2) * 0.2
+    //         const y = (e.clientY - bounds.top - bounds.height / 2) * 0.2
+    //         gsap.to(el, { x, y, duration: 0.3, ease: "power2.out" })
+    //     }
+    //     const handleMouseLeave = (el: HTMLAnchorElement) => {
+    //         gsap.to(el, { x: 0, y: 0, duration: 0.5, ease: "elastic.out(1, 0.3)" })
+    //     }
+    //     navItemRefs.current.forEach((item) => {
+    //         if (item) {
+    //             const onMove = (e: MouseEvent) => handleMouseMove(e, item)
+    //             const onLeave = () => handleMouseLeave(item)
+    //             item.addEventListener("mousemove", onMove)
+    //             item.addEventListener("mouseleave", onLeave)
+    //             (item as any)._gsapCleanup = () => {
+    //                 item.removeEventListener("mousemove", onMove)
+    //                 item.removeEventListener("mouseleave", onLeave)
+    //             }
+    //         }
+    //     })
+    //     return () => {
+    //         navItemRefs.current.forEach((item) => {
+    //             if (item && (item as any)._gsapCleanup) {
+    //                 (item as any)._gsapCleanup()
+    //             }
+    //         })
+    //     }
+    // }, [isMobile])
+
     return (
         <div
+            ref={navRef}
             className={`fixed top-3 sm:top-4 md:top-6 left-1/2 -translate-x-1/2 z-50 transition-all duration-300 ${isScrolled ? 'sm:scale-95' : ''} ${className}`}
         >
             <nav
@@ -114,7 +168,7 @@ export function NavBar({ items = defaultNavItems, className = "" }: NavBarProps)
                         TK
                     </span>
                 </a>
-                {items.map((item) => {
+                {items.map((item, index) => {
                     const Icon = item.icon
                     const isActive = activeTab === item.name
                     const isExternal = item.url.startsWith('http')
@@ -122,6 +176,7 @@ export function NavBar({ items = defaultNavItems, className = "" }: NavBarProps)
                     return (
                         <a
                             key={item.name}
+                            ref={(el) => { navItemRefs.current[index] = el }}
                             href={item.url}
                             target={isExternal ? '_blank' : undefined}
                             rel={isExternal ? 'noopener noreferrer' : undefined}
@@ -130,7 +185,7 @@ export function NavBar({ items = defaultNavItems, className = "" }: NavBarProps)
                             className={`
                                 relative cursor-pointer text-xs sm:text-sm font-semibold 
                                 px-2 sm:px-4 md:px-6 py-1.5 sm:py-2 
-                                rounded-full transition-all duration-300
+                                rounded-full transition-colors duration-300
                                 min-w-[36px] min-h-[36px] sm:min-w-0 sm:min-h-0
                                 flex items-center justify-center
                                 ${isActive

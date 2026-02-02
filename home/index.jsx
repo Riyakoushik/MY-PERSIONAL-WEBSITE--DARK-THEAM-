@@ -1,13 +1,17 @@
 import React from "react";
-import { NavBar } from "../src/components/layout/tubelight-navbar";
+import StaggeredMenu from "../src/components/layout/staggered-menu";
 import { HeroSection } from "./components/HeroSection";
 import { AboutSection } from "./components/AboutSection";
-import ProjectsBentoCards from "../src/components/ui/projects-bento-cards";
+import ProjectsFlowingMenu from "../src/components/ui/projects-flowing-menu";
 import { TestimonialsSection } from "../src/components/ui/testimonials-with-marquee";
 import ModernFooter from "../src/components/layout/modern-footer";
 import CustomCursor from "../src/components/effects/custom-cursor";
 import SkillsMarquee from "../src/components/ui/skills-marquee";
 import AnimeQuoteMarquee from "../src/components/ui/anime-quote-marquee";
+import SmoothScroll from "../src/components/effects/SmoothScroll";
+
+// Import GSAP config to ensure plugins are registered
+import "../src/lib/gsap-config";
 
 
 const testimonials = [
@@ -95,21 +99,23 @@ const testimonials = [
 
 export default function Page() {
   return (
-    <div className="bg-black min-h-screen">
-      <CustomCursor />
+    <SmoothScroll>
+      <div className="bg-black min-h-screen">
+        <CustomCursor />
 
-      <NavBar />
-      <HeroSection />
-      <SkillsMarquee />
-      <AboutSection />
-      <AnimeQuoteMarquee />
-      <ProjectsBentoCards />
-      <TestimonialsSection
-        title="What People Say"
-        description="Feedback from collaborators and clients I've worked with"
-        testimonials={testimonials}
-      />
-      <ModernFooter />
-    </div>
+        <StaggeredMenu />
+        <HeroSection />
+        <SkillsMarquee />
+        <AboutSection />
+        <AnimeQuoteMarquee />
+        <ProjectsFlowingMenu />
+        <TestimonialsSection
+          title="What People Say"
+          description="Feedback from collaborators and clients I've worked with"
+          testimonials={testimonials}
+        />
+        <ModernFooter />
+      </div>
+    </SmoothScroll>
   );
 }
